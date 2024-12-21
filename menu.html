@@ -1,0 +1,182 @@
+<html>
+	<head>
+		<title>Menu</title>
+		<style>
+			a:hover {
+				background-color: pink;
+			}
+		</style>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const priceMapping = {
+					XL: 179,
+					L: 99,
+					M: 79,
+					WhippedCream: 45,
+					Cinnamon: 20,
+					Syrup: 25,
+					Honey: 35,
+					Milk: 15,
+					Chocolate: 30
+				};
+
+				function calculateRowTotal(row) {
+					let total = 0;
+					const size = row.querySelector('input[type="radio"]:checked');
+					if (size) {
+						total += priceMapping[size.value];
+					}
+					row.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+						const addOn = checkbox.name.split('_')[0];
+						total += priceMapping[addOn];
+					});
+					row.querySelector("td:last-child").textContent = `₱ ${total}`;
+					return total;
+				}
+
+				function calculateGrandTotal() {
+					let grandTotal = 0;
+					document.querySelectorAll("table tr").forEach(row => {
+						if (row.querySelector("input[type='radio'], input[type='checkbox']")) {
+							grandTotal += calculateRowTotal(row);
+						}
+					});
+					document.querySelector("input[style*='background-color: transparent']").value = `₱ ${grandTotal}`;
+				}
+
+				document.querySelectorAll("input").forEach(input => {
+					input.addEventListener("change", calculateGrandTotal);
+				});
+			});
+		</script>
+		</head>
+		<body style="background-color: #EEE5E6;">
+		<center>
+                <table border="1" style="border-collapse: collapse; border: 1px solid black;" width="100%" height="90%">
+		<br>
+
+                    <tr>
+                        <th rowspan="3" width="15%" style="font-size: 18px; background-color: #EFC8C1;">Coffee</th>
+                        <th rowspan="3" width="5%" style="font-size: 18px; background-color: #EFC8C1;">Iced</th>
+                        <th colspan="3" width="10%" style="font-size: 18px; background-color: #FBC9CA;">Sizes</th>
+                        <th colspan="6" width="10%" style="font-size: 18px; background-color: #FBC9CA;">Add-ons</th>
+                        <th rowspan="3" width="10%" style="font-size: 18px; background-color: #EFC8C1;">Total</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">XL</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC">L</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC">M</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Whipped Cream</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Cinnamon</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Syrup</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Honey</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Milk</td>
+                        <td style="text-align: center; font-weight: bold; background-color: #F8DADC;">Chocolate</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 179</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 99</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 79</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 45</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 20</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 25</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 35</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 15</td>
+                        <td style="text-align: center; background-color: #F5EEE6;">₱ 30</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Latte</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Latte"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Latte" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Latte" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Latte" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Latte"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Latte"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Latte"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Latte"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Latte"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Latte"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Cappuccino</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Cappuccino" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Cappuccino" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Cappuccino" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Cappuccino"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Cappuccino"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Macchiato</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Macchiato"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Macchiato" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Macchiato" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Macchiato" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Macchiato"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Macchiato"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Macchiato"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Macchiato"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Macchiato"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Macchiato"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Mocha</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Mocha"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Mocha" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Mocha" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Mocha" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Mocha"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Mocha"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Mocha"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Mocha"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Mocha"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Mocha"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Americano</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Americano"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Americano" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Americano" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Americano" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Americano"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Americano"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Americano"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Americano"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Americano"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Americano"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #F5EEE6;">Salted Caramel</td>
+                        <td style="text-align: center;"><input type="checkbox" name="iced_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Salted Caramel" value="XL"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Salted Caramel" value="L"></td>
+                        <td style="text-align: center;"><input type="radio" name="size_Salted Caramel" value="M"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="WhippedCream_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Cinnamon_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Syrup_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Honey_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Milk_Salted Caramel"></td>
+                        <td style="text-align: center;"><input type="checkbox" name="Chocolate_Salted Caramel"></td>
+                        <td style="text-align: center;">₱ 0</td>
+                    </tr>
+				<tr>
+					<th colspan="11" style="text-align: right; font-weight: bold; border: none; background-color: #F5EEE6;">Grand Total:</th>
+					<td style="background-color: #D9E3EC;"><input style="background-color: transparent; border: none;"></td>
+				</tr>
+			</table>
+		</center>
+		<nav style="width: 700px; background-color: transparent; padding: 10px; text-align: left; font-size: 18px;">
+			<a href="index.html" style="margin: 0 15px; text-decoration: none; color: #5A3E36; font-weight: bold;">Back</a>
+		</nav>
+	</body>
+</html>
